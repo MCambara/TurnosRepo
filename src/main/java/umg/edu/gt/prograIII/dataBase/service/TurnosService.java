@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umg.edu.gt.prograIII.dataBase.model.TurnoModel;
 import umg.edu.gt.prograIII.dataBase.repository.TurnosRepository;
+import umg.edu.gt.prograIII.list.ListaEnlazada;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +19,13 @@ public class TurnosService {
         this.turnosRepository = turnosRepository;
     }
 
-    public List<TurnoModel> obtenerTodos() {
-        return turnosRepository.findAll();
+    public ListaEnlazada<TurnoModel> obtenerTodos() {
+        List<TurnoModel> listaJpa = turnosRepository.findAll();
+        ListaEnlazada<TurnoModel> listaPersonalizada = new ListaEnlazada<>();
+        for (TurnoModel turno : listaJpa) {
+            listaPersonalizada.agregar(turno);
+        }
+        return listaPersonalizada;
     }
 
     public Optional<TurnoModel> obtenerPorId(Long id) {
@@ -33,6 +39,4 @@ public class TurnosService {
     public void eliminar(Long id) {
         turnosRepository.deleteById(id);
     }
-
-    // Aquí puedes agregar más métodos con lógica específica según necesidades.
 }

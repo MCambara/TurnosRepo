@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "turno")
-public class TurnoModel {
+public class TurnoModel implements Comparable<TurnoModel> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class TurnoModel {
         }
     }
 
-    // Getters and setters...
+    // Getters y setters...
 
     public Long getId() {
         return id;
@@ -95,6 +95,14 @@ public class TurnoModel {
 
     public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
+    }
+
+    @Override
+    public int compareTo(TurnoModel otro) {
+        if (this.fechaCreacion == null && otro.fechaCreacion == null) return 0;
+        if (this.fechaCreacion == null) return -1;
+        if (otro.fechaCreacion == null) return 1;
+        return this.fechaCreacion.compareTo(otro.fechaCreacion);
     }
 
     @Override
