@@ -39,7 +39,6 @@ public class TurnoModel implements Comparable<TurnoModel> {
         }
     }
 
-    // Getters y setters...
 
     public Long getId() {
         return id;
