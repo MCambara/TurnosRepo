@@ -40,4 +40,32 @@ public class TurnosService {
     public void eliminar(Long id) {
         turnosRepository.deleteById(id);
     }
+
+    public TurnoModel actualizarParcial(Long id, TurnoModel nuevosDatos) {
+        TurnoModel existente = turnosRepository.findById(id).orElse(null);
+        if (existente == null) {
+            return null;
+        }
+
+        if (nuevosDatos.getCodigo() != null) {
+            existente.setCodigo(nuevosDatos.getCodigo());
+        }
+        if (nuevosDatos.getNombreCliente() != null) {
+            existente.setNombreCliente(nuevosDatos.getNombreCliente());
+        }
+        if (nuevosDatos.getDpiCliente() != null) {
+            existente.setDpiCliente(nuevosDatos.getDpiCliente());
+        }
+        if (nuevosDatos.getTipoServicio() != null) {
+            existente.setTipoServicio(nuevosDatos.getTipoServicio());
+        }
+        if (nuevosDatos.getEstado() != null) {
+            existente.setEstado(nuevosDatos.getEstado());
+        }
+        if (nuevosDatos.getFechaCreacion() != null) {
+            existente.setFechaCreacion(nuevosDatos.getFechaCreacion());
+        }
+
+        return turnosRepository.save(existente);
+    }
 }
